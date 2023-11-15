@@ -1,3 +1,13 @@
+import { useResStore, ResState } from '../../store/store'
+
+import { FooterContainer } from './footer.styles'
+
 export default function Footer() {
-	return <div>Footer</div>
+	const resState: ResState = useResStore()
+
+	return (
+		<FooterContainer resolution={resState.resolution}>
+			<p>©️ Copyright 1104 R&I. All Rights Reserved.</p>
+		</FooterContainer>
+	)
 }

@@ -5,8 +5,7 @@ import { ResState, useResStore } from './store/store'
 import useResponsive, { ResolutionType } from './hooks/useResponsive'
 
 import Heros from './components/heros/heros.component'
-import NavBar from './components/nav-bar/nav-bar.component'
-import TabBar from './components/tab-bar/tab-bar.component'
+import DataSection from './components/data-section/data-section.component'
 import Footer from './components/footer/footer.component'
 
 function App() {
@@ -20,9 +19,10 @@ function App() {
 
 	return (
 		<div className="App">
-			<Heros />
-			<NavBar />
-			<TabBar />
+			<div id="body-container" style={{ minHeight: '100vh' }}>
+				<Heros />
+				<DataSection />
+			</div>
 			<Footer />
 		</div>
 	)
