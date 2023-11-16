@@ -14,7 +14,7 @@ export const CardContainer = styled.div<{ resolution: ResolutionType }>`
 	${(props) =>
 		props.resolution.isDesktop &&
 		css`
-			padding: 2rem;
+			padding: 2rem 1.5rem;
 			gap: 1rem;
 		`}
 	${(props) =>
