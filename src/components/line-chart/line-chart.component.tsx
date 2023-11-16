@@ -8,6 +8,8 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 
+import { ResState, useResStore } from '../../store/store'
+
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
@@ -19,6 +21,7 @@ type LineChartProps = {
 
 export default function LineChart(props: LineChartProps) {
 	const { data, labels } = props
+	const resState: ResState = useResStore()
 
 	const chartData = {
 		labels: labels,
@@ -35,6 +38,7 @@ export default function LineChart(props: LineChartProps) {
 
 	const options = {
 		responsive: true,
+		aspectRatio: resState.resolution.isMobile ? 2 : 4,
 		scales: {
 			y: {
 				grid: { display: false },

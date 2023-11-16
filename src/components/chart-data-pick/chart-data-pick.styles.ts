@@ -19,5 +19,10 @@ export const ChartDataPickContainer = styled.ul`
 				font-size: 1.25rem;
 			}
 		}
+
+		span.details-text {
+			font-size: 0.75rem;
+			font-weight: normal;
+		}
 	}
 `

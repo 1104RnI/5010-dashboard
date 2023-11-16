@@ -39,7 +39,7 @@ export const DataContentsArea = styled.div<{ resolution: ResolutionType }>`
 
     text-align: left;
 
-	div#charts-container {
+	/* div#charts-container {
 		width: 100%;
 		display: flex;
 		flex-flow: row wrap;
@@ -47,8 +47,15 @@ export const DataContentsArea = styled.div<{ resolution: ResolutionType }>`
 	}
 
 	div#charts-container > * {
-		/* flex-basis: 20rem; */
-		width: 15rem;
+		${(props) =>
+		props.resolution.isMobile
+			? css`
+					width: 14rem;
+			  `
+			: css`
+					width: 20rem;
+			  `}
+
 		flex-grow: 1;
-	}
+	} */
 `
