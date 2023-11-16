@@ -20,13 +20,13 @@ export const HerosContentsArea = styled.div<{ resolution: ResolutionType }>`
 		props.resolution.isDesktop &&
 		css`
 			max-width: 64rem;
-			padding: 2.5rem;
+			padding: 2rem;
 		`}
 	${(props) =>
 		props.resolution.isTablet &&
 		css`
 			max-width: 54rem;
-			padding: 2.5rem;
+			padding: 2rem;
 		`}
 	${(props) =>
 		props.resolution.isMobile &&

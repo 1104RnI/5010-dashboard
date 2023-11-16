@@ -9,10 +9,8 @@ export const FooterContainer = styled.div<{ resolution: ResolutionType }>`
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
-
 	padding: 1rem;
 
-	background-color: #242424;
 	color: #a6a6a6;
 
 	p {

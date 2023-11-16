@@ -1,12 +1,22 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const TabBarContainer = styled.div`
+import { ResolutionType } from '../../hooks/useResponsive'
+
+export const TabBarContainer = styled.div<{ resolution: ResolutionType }>`
 	display: flex;
-	gap: 0.25rem;
 	height: 2rem;
+	gap: 0.25rem;
 
 	span {
-		padding: 0.25rem 0.5rem;
+		// Responsive web setting
+		${(props) =>
+			props.resolution.isMobile
+				? css`
+						padding: 0.2rem 0.25rem;
+				  `
+				: css`
+						padding: 0.25rem 0.5rem;
+				  `}
 	}
 
 	[type='radio'] {
