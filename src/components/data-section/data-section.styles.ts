@@ -15,7 +15,6 @@ export const DataContentsArea = styled.div<{ resolution: ResolutionType }>`
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
-
 	gap: 1rem;
 
 	// Responsive web setting
@@ -23,13 +22,13 @@ export const DataContentsArea = styled.div<{ resolution: ResolutionType }>`
 		props.resolution.isDesktop &&
 		css`
 			max-width: 64rem;
-			padding: 2.5rem;
+			padding: 2rem;
 		`}
 	${(props) =>
 		props.resolution.isTablet &&
 		css`
-			max-width: 50rem;
-			padding: 2.5rem;
+			max-width: 54rem;
+			padding: 2rem;
 		`}
 	${(props) =>
 		props.resolution.isMobile &&
@@ -39,4 +38,17 @@ export const DataContentsArea = styled.div<{ resolution: ResolutionType }>`
 		`}
 
     text-align: left;
+
+	div#charts-container {
+		width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+		gap: 1rem;
+	}
+
+	div#charts-container > * {
+		/* flex-basis: 20rem; */
+		width: 15rem;
+		flex-grow: 1;
+	}
 `

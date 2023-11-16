@@ -9,11 +9,15 @@ import {
 import { Line } from 'react-chartjs-2'
 
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
-import { dataType } from '../../store/store'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
 
-export default function LineChart(props: dataType) {
+type LineChartProps = {
+	data: number[]
+	labels: string[]
+}
+
+export default function LineChart(props: LineChartProps) {
 	const { data, labels } = props
 
 	const chartData = {

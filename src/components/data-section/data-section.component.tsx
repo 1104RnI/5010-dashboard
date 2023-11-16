@@ -15,9 +15,11 @@ export default function DataSection() {
 			<DataContentsArea resolution={resState.resolution}>
 				<TabBar items={['High', 'Mid', 'Low']} />
 				<DataSummary />
-				<PnlAnalysis />
-				<WinRatioAnalysis />
-				<TradingCountsAnalysis />
+				<div id="charts-container">
+					<PnlAnalysis />
+					<WinRatioAnalysis />
+					<TradingCountsAnalysis />
+				</div>
 			</DataContentsArea>
 		</DataSectionContainer>
 	)

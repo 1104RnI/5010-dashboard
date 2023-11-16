@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { ResolutionType } from '../../hooks/useResponsive'
 
@@ -12,7 +12,21 @@ export const CardContainer = styled.div<{ resolution: ResolutionType }>`
 
 	// Responsive web setting
 	${(props) =>
-		props.resolution.isMobile
-			? `padding: 1.5rem 1rem; gap: 0.75rem;`
-			: `padding: 2rem; gap: 1rem;`}
+		props.resolution.isDesktop &&
+		css`
+			padding: 2rem;
+			gap: 1rem;
+		`}
+	${(props) =>
+		props.resolution.isTablet &&
+		css`
+			padding: 1.5rem 1rem;
+			gap: 1rem;
+		`}
+	${(props) =>
+		props.resolution.isMobile &&
+		css`
+			padding: 1.5rem 1rem;
+			gap: 0.75rem;
+		`}
 `

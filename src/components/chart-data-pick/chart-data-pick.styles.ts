@@ -4,7 +4,7 @@ export const ChartDataPickContainer = styled.ul`
 	list-style: none;
 
 	display: flex;
-	gap: 1.5rem;
+	gap: 1rem;
 
 	padding: 0.5rem 0;
 

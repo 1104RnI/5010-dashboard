@@ -25,7 +25,7 @@ export const HerosContentsArea = styled.div<{ resolution: ResolutionType }>`
 	${(props) =>
 		props.resolution.isTablet &&
 		css`
-			max-width: 50rem;
+			max-width: 54rem;
 			padding: 2.5rem;
 		`}
 	${(props) =>
@@ -47,7 +47,7 @@ export const HerosContentsArea = styled.div<{ resolution: ResolutionType }>`
 	}
 
 	div#right-side-div {
-		width: 12rem;
+		width: 10rem;
 		display: flex;
 	}
 `
