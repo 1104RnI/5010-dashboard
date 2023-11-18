@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import { ResolutionType } from '../../hooks/useResponsive'
 
-export const TabBarContainer = styled.div<{ resolution: ResolutionType }>`
+export const TabBarContainer = styled.form<{ resolution: ResolutionType }>`
 	display: flex;
 	height: 2rem;
 	gap: 0.25rem;
@@ -12,7 +12,7 @@ export const TabBarContainer = styled.div<{ resolution: ResolutionType }>`
 		${(props) =>
 			props.resolution.isMobile
 				? css`
-						padding: 0.2rem 0.25rem;
+						padding: 0.2rem 0.2rem;
 				  `
 				: css`
 						padding: 0.25rem 0.5rem;

@@ -1,63 +1,64 @@
+import { DataType, getAverage } from '../../store/store'
+
 import Card from '../card/card.component'
 
-export default function DataSummary() {
+import {
+	DataSummaryContainer,
+	SummaryContentContainer,
+} from './data-summary.styles'
+
+type DataSummaryProps = {
+	startTime: string
+	endTime: string
+	results: [halfTimeResult: DataType, fullTimeResult: DataType]
+}
+
+export default function DataSummary(props: DataSummaryProps) {
+	const { startTime, endTime, results } = props
+
 	return (
 		<Card title={'Summary'}>
 			<div style={{ marginBottom: '1.25rem' }}>
 				<h5>Periods</h5>
-				<p>11.09. ~ 11.15.</p>
+				<p>
+					{startTime} ~ {endTime}
+				</p>
 			</div>
-			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-				<div style={{ width: '100%' }}>
-					<h5>Daytime(09:00 ~ 18:00) Results</h5>
-					<div
-						style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-					>
-						<div>
-							<p>P&L</p>
-							<h2>50%</h2>
-						</div>
-						<div>
-							<p>Win Ratio</p>
-							<h2>80%</h2>
-						</div>
-						<div>
-							<p>Trading Counts</p>
-							<h2>50</h2>
-							<p>35W 15L</p>
-						</div>
-						<div>
-							<p>Deducted P&L</p>
-							<h2>50%</h2>
-						</div>
-					</div>
-				</div>
 
-				<div style={{ width: '100%' }}>
-					<h5>Fulltime(24h) Results</h5>
-					<div
-						style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
-					>
-						<div>
-							<p>P&L</p>
-							<h2>50%</h2>
+			<DataSummaryContainer>
+				{results.map((item, index) => (
+					<SummaryContentContainer key={index}>
+						<h5>Daytime(09:00 ~ 18:00) Result</h5>
+						<div id="content-layout-div">
+							<div id="left-side-div">
+								<p className="subtitle">Profit & Loss</p>
+								<h2>
+									{getAverage(item.pnlData).toFixed(1)}
+									<span>%</span>
+								</h2>
+							</div>
+							<div id="right-side-div">
+								<div className="content">
+									<p className="subtitle">Win Ratio</p>
+									<h2>{getAverage(item.winRatioData).toFixed(1)}%</h2>
+								</div>
+								<div className="content">
+									<p className="subtitle">Tradings</p>
+									<h2>{Math.floor(getAverage(item.countData.total))}</h2>
+									<p className="subtitle">
+										{Math.floor(getAverage(item.countData.win))}W{' '}
+										{Math.floor(getAverage(item.countData.loss))}L
+									</p>
+								</div>
+								<div className="content">
+									<p className="subtitle">Deducted P&L</p>
+									<h2>{getAverage(item.deductedPnlData).toFixed(1)}%</h2>
+								</div>
+							</div>
 						</div>
-						<div>
-							<p>Win Ratio</p>
-							<h2>80%</h2>
-						</div>
-						<div>
-							<p>Trading Counts</p>
-							<h2>50</h2>
-							<p>35W 15L</p>
-						</div>
-						<div>
-							<p>Deducted P&L</p>
-							<h2>50%</h2>
-						</div>
-					</div>
-				</div>
-			</div>
+					</SummaryContentContainer>
+				))}
+			</DataSummaryContainer>
 		</Card>
 	)
 }

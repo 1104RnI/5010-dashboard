@@ -8,7 +8,7 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 
-import { ResState, useResStore } from '../../store/store'
+import { ResState, useResStore, getAverage } from '../../store/store'
 
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
 
@@ -49,7 +49,12 @@ export default function LineChart(props: LineChartProps) {
 
 	return (
 		<>
-			<ChartDataPick average={5} highest={10} lowest={-5} scale="%" />
+			<ChartDataPick
+				average={Math.floor(getAverage(data) * 10) / 10}
+				highest={Math.max(...data)}
+				lowest={Math.min(...data)}
+				scale="%"
+			/>
 			<Line options={options} data={chartData} />
 			<div
 				style={{

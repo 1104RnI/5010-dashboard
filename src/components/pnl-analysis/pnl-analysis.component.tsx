@@ -5,7 +5,7 @@ import LineChart from '../line-chart/line-chart.component'
 
 export default function PnlAnalysis() {
 	const periods: string[] = useDataStore((state) => state.periods)
-	const pnlData: number[] = useDataStore((state) => state.pnlData)
+	const pnlData: number[] = useDataStore((state) => state.halfTimeData.pnlData)
 
 	return (
 		<Card title={'Profit & Loss'}>
