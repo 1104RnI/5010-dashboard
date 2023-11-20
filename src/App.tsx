@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './App.css'
 
-import { ResState, useResStore } from './store/store'
+import { ResState, useResStore } from './store/stateStore'
 import useResponsive, { ResolutionType } from './hooks/useResponsive'
 
 import Heros from './components/heros/heros.component'

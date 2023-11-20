@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { useResStore, ResState } from '../../store/store'
+import { useResStore, ResState } from '../../store/stateStore'
 
 import { CardContainer } from './card.styles'
 

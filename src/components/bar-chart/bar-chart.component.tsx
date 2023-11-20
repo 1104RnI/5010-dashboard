@@ -8,7 +8,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 
-import { ResState, useResStore } from '../../store/store'
+import { ResState, useResStore } from '../../store/stateStore'
 
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
 
@@ -55,6 +55,7 @@ export default function BarChart(props: BarChartProps) {
 		scales: {
 			x: {
 				grid: { display: false },
+				ticks: { display: resState.resolution.isMobile ? false : true },
 				stacked: true,
 			},
 			y: {
@@ -73,23 +74,25 @@ export default function BarChart(props: BarChartProps) {
 				lowest={{ total: 4, win: 2, loss: 2 }}
 			/>
 			<Bar options={options} data={chartData} />
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'space-around',
-				}}
-			>
-				{data
-					? data.total.map((item, index) => (
-							<div key={index} style={{ textAlign: 'center' }}>
-								<p style={{ fontSize: '0.75rem' }}>{item}</p>
-								<p style={{ fontSize: '0.5rem' }}>
-									{data.win[index]}W {data.loss[index]}L
-								</p>
-							</div>
-					  ))
-					: null}
-			</div>
+			{/* {!resState.resolution.isMobile ? (
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'space-around',
+					}}
+				>
+					{data
+						? data.total.map((item, index) => (
+								<div key={index} style={{ textAlign: 'center' }}>
+									<p style={{ fontSize: '0.75rem' }}>{item}</p>
+									<p style={{ fontSize: '0.5rem' }}>
+										{data.win[index]}W {data.loss[index]}L
+									</p>
+								</div>
+						  ))
+						: null}
+				</div>
+			) : null} */}
 		</>
 	)
 }

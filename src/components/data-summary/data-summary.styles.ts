@@ -26,7 +26,8 @@ export const SummaryContentContainer = styled.div`
 
 		div#left-side-div {
 			h2 {
-				font-size: 5rem;
+				font-size: 4rem;
+				letter-spacing: -0.125rem;
 			}
 			h2 > span {
 				font-size: 2.5rem;
@@ -37,6 +38,10 @@ export const SummaryContentContainer = styled.div`
 			display: flex;
 			flex-wrap: wrap;
 			gap: 0.75rem;
+
+			h2 > span {
+				font-size: 1rem;
+			}
 		}
 
 		p.subtitle {

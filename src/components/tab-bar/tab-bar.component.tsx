@@ -1,5 +1,5 @@
 import { FormEvent } from 'react'
-import { useResStore, ResState } from '../../store/store'
+import { useResStore, ResState } from '../../store/stateStore'
 
 import { TabBarContainer } from './tab-bar.styles'
 

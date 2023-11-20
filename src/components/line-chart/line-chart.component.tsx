@@ -8,7 +8,8 @@ import {
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 
-import { ResState, useResStore, getAverage } from '../../store/store'
+import { ResState, useResStore } from '../../store/stateStore'
+import { getAverage } from '../../store/dataStore'
 
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
 
@@ -44,6 +45,9 @@ export default function LineChart(props: LineChartProps) {
 				grid: { display: false },
 				ticks: { display: false },
 			},
+			x: {
+				ticks: { display: resState.resolution.isMobile ? false : true },
+			},
 		},
 	}
 
@@ -56,21 +60,23 @@ export default function LineChart(props: LineChartProps) {
 				scale="%"
 			/>
 			<Line options={options} data={chartData} />
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'space-between',
-					padding: '0 1%',
-				}}
-			>
-				{data
-					? data.map((item, index) => (
-							<p key={index} style={{ fontSize: '0.75rem' }}>
-								{item}%
-							</p>
-					  ))
-					: null}
-			</div>
+			{/* {!resState.resolution.isMobile ? (
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'space-between',
+						padding: '0 1%',
+					}}
+				>
+					{data
+						? data.map((item, index) => (
+								<p key={index} style={{ fontSize: '0.75rem' }}>
+									{item}%
+								</p>
+						  ))
+						: null}
+				</div>
+			) : null} */}
 		</>
 	)
 }

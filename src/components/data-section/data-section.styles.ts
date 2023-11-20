@@ -38,24 +38,4 @@ export const DataContentsArea = styled.div<{ resolution: ResolutionType }>`
 		`}
 
     text-align: left;
-
-	/* div#charts-container {
-		width: 100%;
-		display: flex;
-		flex-flow: row wrap;
-		gap: 1rem;
-	}
-
-	div#charts-container > * {
-		${(props) =>
-		props.resolution.isMobile
-			? css`
-					width: 14rem;
-			  `
-			: css`
-					width: 20rem;
-			  `}
-
-		flex-grow: 1;
-	} */
 `

@@ -13,10 +13,10 @@ export const ChartDataPickContainer = styled.ul`
 
 		p {
 			font-weight: bold;
-			font-size: 2rem;
+			font-size: 1.75rem;
 
 			span {
-				font-size: 1.25rem;
+				font-size: 1rem;
 			}
 		}
 

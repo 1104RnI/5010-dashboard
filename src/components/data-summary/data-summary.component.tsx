@@ -1,4 +1,4 @@
-import { DataType, getAverage } from '../../store/store'
+import { DataType, getAverage, getSum } from '../../store/dataStore'
 
 import Card from '../card/card.component'
 
@@ -10,7 +10,7 @@ import {
 type DataSummaryProps = {
 	startTime: string
 	endTime: string
-	results: [halfTimeResult: DataType, fullTimeResult: DataType]
+	results: [halfTimeResult: DataType[], fullTimeResult: DataType[]]
 }
 
 export default function DataSummary(props: DataSummaryProps) {
@@ -26,33 +26,73 @@ export default function DataSummary(props: DataSummaryProps) {
 			</div>
 
 			<DataSummaryContainer>
-				{results.map((item, index) => (
+				{results.map((dataSet, index) => (
 					<SummaryContentContainer key={index}>
 						<h5>Daytime(09:00 ~ 18:00) Result</h5>
 						<div id="content-layout-div">
 							<div id="left-side-div">
 								<p className="subtitle">Profit & Loss</p>
 								<h2>
-									{getAverage(item.pnlData).toFixed(1)}
+									{getSum(
+										dataSet.map((item, index) => {
+											return item.profit
+										}),
+									).toFixed(1)}
 									<span>%</span>
 								</h2>
 							</div>
 							<div id="right-side-div">
 								<div className="content">
 									<p className="subtitle">Win Ratio</p>
-									<h2>{getAverage(item.winRatioData).toFixed(1)}%</h2>
+									<h2>
+										{getAverage(
+											dataSet.map((item, index) => {
+												return item.win_rate
+											}),
+										).toFixed(1)}
+										<span>%</span>
+									</h2>
 								</div>
 								<div className="content">
 									<p className="subtitle">Tradings</p>
-									<h2>{Math.floor(getAverage(item.countData.total))}</h2>
+									<h2>
+										{Math.floor(
+											getSum(
+												dataSet.map((item, index) => {
+													return item.total_trades
+												}),
+											),
+										)}
+									</h2>
 									<p className="subtitle">
-										{Math.floor(getAverage(item.countData.win))}W{' '}
-										{Math.floor(getAverage(item.countData.loss))}L
+										{Math.floor(
+											getSum(
+												dataSet.map((item, index) => {
+													return item.win_trades
+												}),
+											),
+										)}
+										W{' '}
+										{Math.floor(
+											getSum(
+												dataSet.map((item, index) => {
+													return item.lose_trades
+												}),
+											),
+										)}
+										L
 									</p>
 								</div>
 								<div className="content">
 									<p className="subtitle">Deducted P&L</p>
-									<h2>{getAverage(item.deductedPnlData).toFixed(1)}%</h2>
+									<h2>
+										{getSum(
+											dataSet.map((item, index) => {
+												return item.deducted_profit
+											}),
+										).toFixed(1)}
+										<span>%</span>
+									</h2>
 								</div>
 							</div>
 						</div>

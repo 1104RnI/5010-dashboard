@@ -1,4 +1,4 @@
-import { useResStore, ResState } from '../../store/store'
+import { useResStore, ResState } from '../../store/stateStore'
 
 import { FooterContainer } from './footer.styles'
 
