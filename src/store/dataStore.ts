@@ -8,6 +8,7 @@ export type DataParamsType = {
 	year: number
 	month?: number
 	day?: number
+	specificHour?: boolean
 }
 
 export type DataType = {
@@ -22,17 +23,23 @@ export type DataType = {
 
 export interface DataState {
 	data: DataType[]
-	setData: (data: DataType[]) => void
+	fulltimeData: DataType[]
+	setData: (data: DataType[], fulltimeData: DataType[]) => void
 }
 
 export const getAverage = (data: number[]) => {
-	const average = data.reduce((acc, item) => acc + item) / data.length
+	const average = data.reduce((acc, item) => acc + item, 0) / data.length
 	return average
 }
 
 export const getSum = (data: number[]) => {
 	const sum = data.reduce((acc, item) => acc + item)
 	return sum
+}
+
+export const getExisting = (data: DataType[]) => {
+	const newData = data.filter((item) => item.total_trades !== 0)
+	return newData
 }
 
 export const useDataStore = create<DataState>((set) => ({
@@ -47,5 +54,17 @@ export const useDataStore = create<DataState>((set) => ({
 			lose_trades: 0,
 		},
 	],
-	setData: (newData: DataType[]) => set({ data: newData }),
+	fulltimeData: [
+		{
+			date: '',
+			profit: 0,
+			deducted_profit: 0,
+			win_rate: 0,
+			total_trades: 0,
+			win_trades: 0,
+			lose_trades: 0,
+		},
+	],
+	setData: (newData: DataType[], newFulltimeData: DataType[]) =>
+		set({ data: newData, fulltimeData: newFulltimeData }),
 }))

@@ -27,8 +27,9 @@ export default function DataSection() {
 		},
 	)
 
-	const { data, setData }: DataState = useDataStore((state) => ({
+	const { data, fulltimeData, setData }: DataState = useDataStore((state) => ({
 		data: state.data,
+		fulltimeData: state.fulltimeData,
 		setData: state.setData,
 	}))
 
@@ -42,19 +43,26 @@ export default function DataSection() {
 				? 2
 				: -1
 
+		const axiosParams = {
+			period: params.period,
+			year: params.year,
+			...(params.month && { month: params.month }),
+			...(params.day && { day: params.day }),
+		}
+
 		try {
-			const response = await axios.get(
-				'http://13.214.72.76:5000/get_statistics',
-				{
-					params: {
-						period: params.period,
-						year: params.year,
-						...(params.month && { month: params.month }),
-						...(params.day && { day: params.day }),
-					},
-				},
+			const response = await axios.all([
+				axios.get(process.env.REACT_APP_DATA_URL, {
+					params: { ...axiosParams, specific_hour: true },
+				}),
+				axios.get(process.env.REACT_APP_DATA_URL, {
+					params: { ...axiosParams },
+				}),
+			])
+			setData(
+				response[0].data[indicatorType][params.indicator.substring(0, 1)],
+				response[1].data[indicatorType][params.indicator.substring(0, 1)],
 			)
-			setData(response.data[indicatorType][params.indicator.substring(0, 1)])
 		} catch (e) {
 			console.error(e)
 		}
@@ -78,7 +86,7 @@ export default function DataSection() {
 				<DataSummary
 					startTime={data[0].date}
 					endTime={data[data.length - 1].date}
-					results={[data, data]}
+					results={[data, fulltimeData]}
 				/>
 				<PnlAnalysis />
 				<WinRatioAnalysis />

@@ -1,4 +1,9 @@
-import { DataType, getAverage, getSum } from '../../store/dataStore'
+import {
+	DataType,
+	getAverage,
+	getSum,
+	getExisting,
+} from '../../store/dataStore'
 
 import Card from '../card/card.component'
 
@@ -28,10 +33,12 @@ export default function DataSummary(props: DataSummaryProps) {
 			<DataSummaryContainer>
 				{results.map((dataSet, index) => (
 					<SummaryContentContainer key={index}>
-						<h5>Daytime(09:00 ~ 18:00) Result</h5>
+						<h5>
+							{index === 0 ? 'Daytime(09:00 ~ 18:00)' : 'Fulltime(24h)'} Result
+						</h5>
 						<div id="content-layout-div">
 							<div id="left-side-div">
-								<p className="subtitle">Profit & Loss</p>
+								<p className="subtitle">Total Profit & Loss</p>
 								<h2>
 									{getSum(
 										dataSet.map((item, index) => {
@@ -46,7 +53,7 @@ export default function DataSummary(props: DataSummaryProps) {
 									<p className="subtitle">Win Ratio</p>
 									<h2>
 										{getAverage(
-											dataSet.map((item, index) => {
+											getExisting(dataSet).map((item, index) => {
 												return item.win_rate
 											}),
 										).toFixed(1)}

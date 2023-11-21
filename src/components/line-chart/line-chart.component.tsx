@@ -54,29 +54,14 @@ export default function LineChart(props: LineChartProps) {
 	return (
 		<>
 			<ChartDataPick
-				average={Math.floor(getAverage(data) * 10) / 10}
+				average={
+					Math.floor(getAverage(data.filter((item) => item !== 0)) * 10) / 10
+				}
 				highest={Math.max(...data)}
 				lowest={Math.min(...data.filter((item) => item !== 0))}
 				scale="%"
 			/>
 			<Line options={options} data={chartData} />
-			{/* {!resState.resolution.isMobile ? (
-				<div
-					style={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						padding: '0 1%',
-					}}
-				>
-					{data
-						? data.map((item, index) => (
-								<p key={index} style={{ fontSize: '0.75rem' }}>
-									{item}%
-								</p>
-						  ))
-						: null}
-				</div>
-			) : null} */}
 		</>
 	)
 }

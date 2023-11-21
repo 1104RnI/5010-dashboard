@@ -25,6 +25,7 @@ export const SummaryContentContainer = styled.div`
 		align-items: center;
 
 		div#left-side-div {
+			min-width: 14rem;
 			h2 {
 				font-size: 4rem;
 				letter-spacing: -0.125rem;
