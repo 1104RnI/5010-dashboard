@@ -9,18 +9,52 @@ import {
 import { Bar } from 'react-chartjs-2'
 
 import { ResState, useResStore } from '../../store/stateStore'
+import { getAverage } from '../../store/dataStore'
 
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Tooltip)
 
+type BarChartDataType = {
+	total: number
+	win: number
+	loss: number
+}
+
 type BarChartProps = {
-	data: {
-		total: number[]
-		win: number[]
-		loss: number[]
-	}
+	data: BarChartDataType[]
 	labels: string[]
+}
+
+const getArray = (
+	data: BarChartDataType[],
+	selection: 'total' | 'win' | 'loss',
+): number[] => {
+	if (selection === 'total') {
+		return data.map((item) => item.total)
+	} else if (selection === 'win') {
+		return data.map((item) => item.win)
+	} else if (selection === 'loss') {
+		return data.map((item) => item.loss)
+	} else {
+		return []
+	}
+}
+
+const getHighest = (data: BarChartDataType[]) => {
+	const highest = data.reduce((acc, item) =>
+		item.total > acc.total ? item : acc,
+	)
+	return highest
+}
+
+const getLowest = (data: BarChartDataType[]) => {
+	const newData = data.filter((item) => item.total !== 0)
+	const lowest = newData.reduce(
+		(acc, item) => (item.total < acc.total ? item : acc),
+		getHighest(data),
+	)
+	return lowest
 }
 
 export default function BarChart(props: BarChartProps) {
@@ -32,7 +66,7 @@ export default function BarChart(props: BarChartProps) {
 		datasets: [
 			{
 				label: 'loss',
-				data: data.loss,
+				data: data.map((item) => item.loss),
 				borderColor: 'rgb(36, 117, 171)',
 				backgroundColor: 'rgb(36, 117, 171)',
 				barPercentage: 0.2,
@@ -40,7 +74,7 @@ export default function BarChart(props: BarChartProps) {
 			},
 			{
 				label: 'win',
-				data: data.win,
+				data: data.map((item) => item.win),
 				borderColor: 'rgb(53, 162, 235)',
 				backgroundColor: 'rgb(53, 162, 235)',
 				barPercentage: 0.2,
@@ -69,9 +103,21 @@ export default function BarChart(props: BarChartProps) {
 	return (
 		<>
 			<ChartDataPick
-				average={{ total: 9, win: 6, loss: 3 }}
-				highest={{ total: 12, win: 9, loss: 3 }}
-				lowest={{ total: 4, win: 2, loss: 2 }}
+				average={{
+					total: Math.floor(getAverage(getArray(data, 'total')) * 10) / 10,
+					win: Math.floor(getAverage(getArray(data, 'win')) * 10) / 10,
+					loss: Math.floor(getAverage(getArray(data, 'loss')) * 10) / 10,
+				}}
+				highest={{
+					total: getHighest(data).total,
+					win: getHighest(data).win,
+					loss: getHighest(data).loss,
+				}}
+				lowest={{
+					total: getLowest(data).total,
+					win: getLowest(data).win,
+					loss: getLowest(data).loss,
+				}}
 			/>
 			<Bar options={options} data={chartData} />
 			{/* {!resState.resolution.isMobile ? (

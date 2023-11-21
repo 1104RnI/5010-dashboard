@@ -14,6 +14,7 @@ export const ChartDataPickContainer = styled.ul`
 		p {
 			font-weight: bold;
 			font-size: 1.75rem;
+			letter-spacing: -0.075rem;
 
 			span {
 				font-size: 1rem;

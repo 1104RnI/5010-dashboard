@@ -56,7 +56,7 @@ export default function LineChart(props: LineChartProps) {
 			<ChartDataPick
 				average={Math.floor(getAverage(data) * 10) / 10}
 				highest={Math.max(...data)}
-				lowest={Math.min(...data)}
+				lowest={Math.min(...data.filter((item) => item !== 0))}
 				scale="%"
 			/>
 			<Line options={options} data={chartData} />

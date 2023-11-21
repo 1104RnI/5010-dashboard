@@ -60,7 +60,12 @@ export default function ChartDataPick(props: ChartDataPickProps) {
 						{typeof lowest !== 'number' && lowest.total ? lowest.total : null}
 						{scale ? <span>{scale}</span> : null}
 					</p>
-					{typeof lowest !== 'number' && lowest.win && lowest.loss ? (
+					{/* {typeof lowest !== 'number' && lowest.win && lowest.loss ? (
+						<span className="details-text">
+							{lowest.win}W {lowest.loss}L
+						</span>
+					) : null} */}
+					{typeof lowest !== 'number' && lowest.total ? (
 						<span className="details-text">
 							{lowest.win}W {lowest.loss}L
 						</span>
