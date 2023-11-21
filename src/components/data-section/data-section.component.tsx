@@ -27,11 +27,13 @@ export default function DataSection() {
 		},
 	)
 
-	const { data, fulltimeData, setData }: DataState = useDataStore((state) => ({
-		data: state.data,
-		fulltimeData: state.fulltimeData,
-		setData: state.setData,
-	}))
+	const { daytimeData, fulltimeData, setData }: DataState = useDataStore(
+		(state) => ({
+			daytimeData: state.daytimeData,
+			fulltimeData: state.fulltimeData,
+			setData: state.setData,
+		}),
+	)
 
 	async function getData(params: DataParamsType) {
 		const indicatorType =
@@ -84,9 +86,9 @@ export default function DataSection() {
 			<DataContentsArea resolution={resState.resolution}>
 				<TabBar items={['High', 'Mid', 'Low']} handleClick={changeState} />
 				<DataSummary
-					startTime={data[0].date}
-					endTime={data[data.length - 1].date}
-					results={[data, fulltimeData]}
+					startTime={fulltimeData[0].date}
+					endTime={fulltimeData[fulltimeData.length - 1].date}
+					results={[daytimeData, fulltimeData]}
 				/>
 				<PnlAnalysis />
 				<WinRatioAnalysis />

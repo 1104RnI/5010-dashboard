@@ -22,7 +22,7 @@ export type DataType = {
 }
 
 export interface DataState {
-	data: DataType[]
+	daytimeData: DataType[]
 	fulltimeData: DataType[]
 	setData: (data: DataType[], fulltimeData: DataType[]) => void
 }
@@ -43,7 +43,7 @@ export const getExisting = (data: DataType[]) => {
 }
 
 export const useDataStore = create<DataState>((set) => ({
-	data: [
+	daytimeData: [
 		{
 			date: '',
 			profit: 0,
@@ -66,5 +66,5 @@ export const useDataStore = create<DataState>((set) => ({
 		},
 	],
 	setData: (newData: DataType[], newFulltimeData: DataType[]) =>
-		set({ data: newData, fulltimeData: newFulltimeData }),
+		set({ daytimeData: newData, fulltimeData: newFulltimeData }),
 }))

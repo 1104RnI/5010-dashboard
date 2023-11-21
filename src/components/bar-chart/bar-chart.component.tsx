@@ -22,7 +22,8 @@ type BarChartDataType = {
 }
 
 type BarChartProps = {
-	data: BarChartDataType[]
+	daytimeData?: BarChartDataType[]
+	fulltimeData: BarChartDataType[]
 	labels: string[]
 }
 
@@ -58,27 +59,47 @@ const getLowest = (data: BarChartDataType[]) => {
 }
 
 export default function BarChart(props: BarChartProps) {
-	const { data, labels } = props
+	const { fulltimeData, daytimeData, labels } = props
 	const resState: ResState = useResStore()
 
 	const chartData = {
-		labels: labels,
+		labels: labels.map((item) => item.substring(5, 10)),
 		datasets: [
 			{
 				label: 'loss',
-				data: data.map((item) => item.loss),
-				borderColor: 'rgb(36, 117, 171)',
-				backgroundColor: 'rgb(36, 117, 171)',
-				barPercentage: 0.2,
+				data: daytimeData?.map((item) => item.loss),
+				borderColor: 'rgba(18, 119, 77, 0.75)',
+				backgroundColor: 'rgba(18, 119, 77, 0.75)',
+				barPercentage: 0.5,
 				borderRadius: 100,
+				stack: 'Stack 0',
 			},
 			{
 				label: 'win',
-				data: data.map((item) => item.win),
-				borderColor: 'rgb(53, 162, 235)',
-				backgroundColor: 'rgb(53, 162, 235)',
-				barPercentage: 0.2,
+				data: daytimeData?.map((item) => item.win),
+				borderColor: 'rgba(18, 189, 118, 0.75)',
+				backgroundColor: 'rgba(18, 189, 118, 0.75)',
+				barPercentage: 0.5,
 				borderRadius: 100,
+				stack: 'Stack 0',
+			},
+			{
+				label: 'loss',
+				data: fulltimeData.map((item) => item.loss),
+				borderColor: 'rgba(36, 117, 171, 0.75)',
+				backgroundColor: 'rgba(36, 117, 171, 0.75)',
+				barPercentage: 0.5,
+				borderRadius: 100,
+				stack: 'Stack 1',
+			},
+			{
+				label: 'win',
+				data: fulltimeData.map((item) => item.win),
+				borderColor: 'rgba(53, 162, 235, 0.75)',
+				backgroundColor: 'rgba(53, 162, 235, 0.75)',
+				barPercentage: 0.5,
+				borderRadius: 100,
+				stack: 'Stack 1',
 			},
 		],
 	}
@@ -93,7 +114,7 @@ export default function BarChart(props: BarChartProps) {
 				stacked: true,
 			},
 			y: {
-				grid: { display: false },
+				grid: { display: false, drawBorder: false },
 				ticks: { display: false },
 				stacked: true,
 			},
@@ -104,41 +125,24 @@ export default function BarChart(props: BarChartProps) {
 		<>
 			<ChartDataPick
 				average={{
-					total: Math.floor(getAverage(getArray(data, 'total')) * 10) / 10,
-					win: Math.floor(getAverage(getArray(data, 'win')) * 10) / 10,
-					loss: Math.floor(getAverage(getArray(data, 'loss')) * 10) / 10,
+					total:
+						Math.floor(getAverage(getArray(fulltimeData, 'total')) * 10) / 10,
+					win: Math.floor(getAverage(getArray(fulltimeData, 'win')) * 10) / 10,
+					loss:
+						Math.floor(getAverage(getArray(fulltimeData, 'loss')) * 10) / 10,
 				}}
 				highest={{
-					total: getHighest(data).total,
-					win: getHighest(data).win,
-					loss: getHighest(data).loss,
+					total: getHighest(fulltimeData).total,
+					win: getHighest(fulltimeData).win,
+					loss: getHighest(fulltimeData).loss,
 				}}
 				lowest={{
-					total: getLowest(data).total,
-					win: getLowest(data).win,
-					loss: getLowest(data).loss,
+					total: getLowest(fulltimeData).total,
+					win: getLowest(fulltimeData).win,
+					loss: getLowest(fulltimeData).loss,
 				}}
 			/>
 			<Bar options={options} data={chartData} />
-			{/* {!resState.resolution.isMobile ? (
-				<div
-					style={{
-						display: 'flex',
-						justifyContent: 'space-around',
-					}}
-				>
-					{data
-						? data.total.map((item, index) => (
-								<div key={index} style={{ textAlign: 'center' }}>
-									<p style={{ fontSize: '0.75rem' }}>{item}</p>
-									<p style={{ fontSize: '0.5rem' }}>
-										{data.win[index]}W {data.loss[index]}L
-									</p>
-								</div>
-						  ))
-						: null}
-				</div>
-			) : null} */}
 		</>
 	)
 }

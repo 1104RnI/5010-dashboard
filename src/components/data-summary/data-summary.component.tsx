@@ -15,7 +15,7 @@ import {
 type DataSummaryProps = {
 	startTime: string
 	endTime: string
-	results: [halfTimeResult: DataType[], fullTimeResult: DataType[]]
+	results: [daytimeResult: DataType[], fulltimeResult: DataType[]]
 }
 
 export default function DataSummary(props: DataSummaryProps) {
