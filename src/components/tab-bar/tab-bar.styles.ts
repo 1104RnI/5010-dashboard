@@ -7,7 +7,16 @@ export const TabBarContainer = styled.form<{ resolution: ResolutionType }>`
 	height: 2rem;
 	gap: 0.25rem;
 
+	margin-top: 1rem;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
 	span {
+		cursor: pointer;
+
 		// Responsive web setting
 		${(props) =>
 			props.resolution.isMobile

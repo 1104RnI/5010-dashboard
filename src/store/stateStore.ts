@@ -9,7 +9,7 @@ export interface ResState {
 
 export type IndicatorType = 'high' | 'mid' | 'low'
 
-interface IndicatorState {
+export interface IndicatorState {
 	indicatorType: IndicatorType
 	setIndicatorType: (type: IndicatorType) => void
 }

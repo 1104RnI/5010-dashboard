@@ -1,15 +1,13 @@
-import { useEffect, FormEvent } from 'react'
+import { useEffect } from 'react'
 
 import axios from 'axios'
 import {
 	ResState,
-	IndicatorType,
 	useResStore,
 	useIndicatorStore,
 } from '../../store/stateStore'
 import { DataState, useDataStore, DataParamsType } from '../../store/dataStore'
 
-import TabBar from '../tab-bar/tab-bar.component'
 import DataSummary from '../data-summary/data-summary.component'
 import PnlAnalysis from '../pnl-analysis/pnl-analysis.component'
 import WinRatioAnalysis from '../win-ratio-analysis/win-ratio-analysis.component'
@@ -19,13 +17,6 @@ import { DataSectionContainer, DataContentsArea } from './data-section.styles'
 export default function DataSection() {
 	const resState: ResState = useResStore()
 	const indicatorState = useIndicatorStore((state) => state.indicatorType)
-	const changeState = useIndicatorStore(
-		(state) => (e: FormEvent<HTMLInputElement>) => {
-			state.setIndicatorType(
-				e.currentTarget.value.toLowerCase() as IndicatorType,
-			)
-		},
-	)
 
 	const { daytimeData, fulltimeData, setData }: DataState = useDataStore(
 		(state) => ({
@@ -84,7 +75,6 @@ export default function DataSection() {
 	return (
 		<DataSectionContainer>
 			<DataContentsArea resolution={resState.resolution}>
-				<TabBar items={['High', 'Mid', 'Low']} handleClick={changeState} />
 				<DataSummary
 					startTime={fulltimeData[0].date}
 					endTime={fulltimeData[fulltimeData.length - 1].date}
