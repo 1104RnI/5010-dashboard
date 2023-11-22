@@ -12,6 +12,7 @@ import { ResState, useResStore } from '../../store/stateStore'
 import { getAverage } from '../../store/dataStore'
 
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
+import { LineChartContainer } from './line-chart.styles'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
 
@@ -65,18 +66,33 @@ export default function LineChart(props: LineChartProps) {
 	}
 
 	return (
-		<>
-			<ChartDataPick
-				average={
-					Math.floor(
-						getAverage(fulltimeData.filter((item) => item !== 0)) * 10,
-					) / 10
-				}
-				highest={Math.max(...fulltimeData)}
-				lowest={Math.min(...fulltimeData.filter((item) => item !== 0))}
-				scale="%"
-			/>
+		<LineChartContainer>
+			<div id="data-pick-container">
+				{daytimeData ? (
+					<ChartDataPick
+						isDaytime
+						average={
+							Math.floor(
+								getAverage(daytimeData.filter((item) => item !== 0)) * 10,
+							) / 10
+						}
+						highest={Math.max(...daytimeData)}
+						lowest={Math.min(...daytimeData.filter((item) => item !== 0))}
+						scale="%"
+					/>
+				) : null}
+				<ChartDataPick
+					average={
+						Math.floor(
+							getAverage(fulltimeData.filter((item) => item !== 0)) * 10,
+						) / 10
+					}
+					highest={Math.max(...fulltimeData)}
+					lowest={Math.min(...fulltimeData.filter((item) => item !== 0))}
+					scale="%"
+				/>
+			</div>
 			<Line options={options} data={chartData} />
-		</>
+		</LineChartContainer>
 	)
 }

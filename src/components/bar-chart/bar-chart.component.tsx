@@ -12,6 +12,7 @@ import { ResState, useResStore } from '../../store/stateStore'
 import { getAverage } from '../../store/dataStore'
 
 import ChartDataPick from '../chart-data-pick/chart-data-pick.component'
+import { BarChartContainer } from './bar-chart.styles'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Tooltip)
 
@@ -122,27 +123,54 @@ export default function BarChart(props: BarChartProps) {
 	}
 
 	return (
-		<>
-			<ChartDataPick
-				average={{
-					total:
-						Math.floor(getAverage(getArray(fulltimeData, 'total')) * 10) / 10,
-					win: Math.floor(getAverage(getArray(fulltimeData, 'win')) * 10) / 10,
-					loss:
-						Math.floor(getAverage(getArray(fulltimeData, 'loss')) * 10) / 10,
-				}}
-				highest={{
-					total: getHighest(fulltimeData).total,
-					win: getHighest(fulltimeData).win,
-					loss: getHighest(fulltimeData).loss,
-				}}
-				lowest={{
-					total: getLowest(fulltimeData).total,
-					win: getLowest(fulltimeData).win,
-					loss: getLowest(fulltimeData).loss,
-				}}
-			/>
+		<BarChartContainer>
+			<div id="data-pick-container">
+				{daytimeData ? (
+					<ChartDataPick
+						isDaytime
+						average={{
+							total:
+								Math.floor(getAverage(getArray(daytimeData, 'total')) * 10) /
+								10,
+							win:
+								Math.floor(getAverage(getArray(daytimeData, 'win')) * 10) / 10,
+							loss:
+								Math.floor(getAverage(getArray(daytimeData, 'loss')) * 10) / 10,
+						}}
+						highest={{
+							total: getHighest(daytimeData).total,
+							win: getHighest(daytimeData).win,
+							loss: getHighest(daytimeData).loss,
+						}}
+						lowest={{
+							total: getLowest(daytimeData).total,
+							win: getLowest(daytimeData).win,
+							loss: getLowest(daytimeData).loss,
+						}}
+					/>
+				) : null}
+				<ChartDataPick
+					average={{
+						total:
+							Math.floor(getAverage(getArray(fulltimeData, 'total')) * 10) / 10,
+						win:
+							Math.floor(getAverage(getArray(fulltimeData, 'win')) * 10) / 10,
+						loss:
+							Math.floor(getAverage(getArray(fulltimeData, 'loss')) * 10) / 10,
+					}}
+					highest={{
+						total: getHighest(fulltimeData).total,
+						win: getHighest(fulltimeData).win,
+						loss: getHighest(fulltimeData).loss,
+					}}
+					lowest={{
+						total: getLowest(fulltimeData).total,
+						win: getLowest(fulltimeData).win,
+						loss: getLowest(fulltimeData).loss,
+					}}
+				/>
+			</div>
 			<Bar options={options} data={chartData} />
-		</>
+		</BarChartContainer>
 	)
 }
