@@ -10,6 +10,7 @@ import {
 import TabBar from '../tab-bar/tab-bar.component'
 import ModalButton from '../modal-button/modal-button.component'
 import PopupModal from '../popup-modal/popup-modal.component'
+import PeriodSelection from '../period-selection/period-selection.component'
 import { ReactComponent as CalendarIcon } from '../../assets/svg/calendar-icon.svg'
 
 import {
@@ -45,7 +46,10 @@ export default function ControlBar() {
 				/>
 			</ControlBarContentsArea>
 			{isModalOpen ? (
-				<PopupModal handleBackgroundClick={handleModalOpen} />
+				<PopupModal
+					handleBackgroundClick={handleModalOpen}
+					item={<PeriodSelection handleCancel={handleModalOpen} />}
+				/>
 			) : null}
 		</ControlBarContainer>
 	)
