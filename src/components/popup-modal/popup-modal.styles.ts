@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { ResolutionType } from '../../hooks/useResponsive'
-
 export const PopupModalContainer = styled.div`
 	width: 100%;
 	height: 100%;

@@ -20,7 +20,6 @@ import {
 export default function ControlBar() {
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 	const resState: ResState = useResStore()
-	// const indicatorState = useIndicatorStore((state) => state.indicatorType)
 	const changeState = useIndicatorStore(
 		(state) => (e: FormEvent<HTMLInputElement>) => {
 			state.setIndicatorType(
@@ -29,10 +28,7 @@ export default function ControlBar() {
 		},
 	)
 
-	const handleModalOpen = () => {
-		setIsModalOpen(!isModalOpen)
-		console.log(`clicked, ${isModalOpen}`)
-	}
+	const handleModalOpen = () => setIsModalOpen(!isModalOpen)
 
 	useEffect(() => {
 		document.body.style.overflow = isModalOpen ? 'hidden' : 'unset'
