@@ -14,6 +14,7 @@ export const PopupModalContainer = styled.div`
 	gap: 1rem;
 
 	z-index: 100;
+	backdrop-filter: blur(0.5rem);
 
 	div#modal-background {
 		width: 100%;
@@ -23,7 +24,7 @@ export const PopupModalContainer = styled.div`
 		top: 0;
 
 		background-color: rgba(255, 255, 255, 0.75);
-		backdrop-filter: blur(0.5rem);
+		/* backdrop-filter: blur(0.5rem); */
 	}
 
 	div#modal_box {

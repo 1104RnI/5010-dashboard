@@ -1,4 +1,6 @@
 import { MouseEventHandler } from 'react'
+import Calendar from 'react-calendar'
+import './Calendar.css'
 
 import Button from '../button/button.component'
 
@@ -14,6 +16,7 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 	return (
 		<PeriodSelectionContainer>
 			<h5>Select Data Period</h5>
+			<Calendar></Calendar>
 			<div id="buttons-container">
 				<Button
 					text="Cancel"
