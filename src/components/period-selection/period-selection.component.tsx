@@ -20,6 +20,7 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 
 	useEffect(() => {
 		console.log(date)
+		console.log(typeof date)
 	}, [date])
 
 	return (
@@ -33,6 +34,8 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 				maxDate={new Date()}
 				minDate={period.serviceStartDate}
 			></Calendar>
+			<p>{date?.toLocaleString()}</p>
+
 			{/* {date?.length > 0 ? (
 				<p className="text-center">
 					<span className="bold">Start:</span> {date[0].toDateString()}
