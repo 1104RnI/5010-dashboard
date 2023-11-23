@@ -27,12 +27,24 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 			<h5>Select Data Period</h5>
 			<Calendar
 				selectRange
-				value={date}
+				// value={date}
 				onChange={setDate}
-				defaultValue={date}
+				// defaultValue={date}
 				maxDate={new Date()}
 				minDate={period.serviceStartDate}
 			></Calendar>
+			{/* {date?.length > 0 ? (
+				<p className="text-center">
+					<span className="bold">Start:</span> {date[0].toDateString()}
+					&nbsp;|&nbsp;
+					<span className="bold">End:</span> {date[1].toDateString()}
+				</p>
+			) : (
+				<p className="text-center">
+					<span className="bold">Default selected date:</span>{' '}
+					{date.toDateString()}
+				</p>
+			)} */}
 			<div id="buttons-container">
 				<Button
 					text="Cancel"
