@@ -14,10 +14,11 @@ export interface IndicatorState {
 	setIndicatorType: (type: IndicatorType) => void
 }
 
-interface PeriodState {
-	startTime: string
-	endTime: string
-	setTime: (startTime: Date, endTime: Date) => void
+export interface PeriodState {
+	serviceStartDate: Date
+	startDate: Date
+	endDate: Date
+	setPeriod: (startDate: Date, endDate: Date) => void
 }
 
 export const useIndicatorStore = create<IndicatorState>((set) => ({
@@ -33,11 +34,9 @@ export const useResStore = create<ResState>((set) => ({
 }))
 
 export const usePeriodStore = create<PeriodState>((set) => ({
-	startTime: '',
-	endTime: '',
-	setTime: (startTime: Date, endTime: Date) =>
-		set(() => ({
-			startTime: startTime.toLocaleDateString(),
-			endTime: endTime.toLocaleDateString(),
-		})),
+	serviceStartDate: new Date(2023, 10, 8),
+	startDate: new Date(),
+	endDate: new Date(),
+	setPeriod: (startDate: Date, endDate: Date) =>
+		set(() => ({ startDate: startDate, endDate: endDate })),
 }))
