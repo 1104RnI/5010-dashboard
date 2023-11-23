@@ -14,6 +14,12 @@ export interface IndicatorState {
 	setIndicatorType: (type: IndicatorType) => void
 }
 
+interface PeriodState {
+	startTime: string
+	endTime: string
+	// set
+}
+
 export const useIndicatorStore = create<IndicatorState>((set) => ({
 	indicatorType: 'high',
 	setIndicatorType: (type: IndicatorType) =>

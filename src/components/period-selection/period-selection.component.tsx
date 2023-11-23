@@ -16,7 +16,7 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 	return (
 		<PeriodSelectionContainer>
 			<h5>Select Data Period</h5>
-			<Calendar></Calendar>
+			<Calendar selectRange></Calendar>
 			<div id="buttons-container">
 				<Button
 					text="Cancel"
