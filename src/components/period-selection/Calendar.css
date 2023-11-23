@@ -49,6 +49,7 @@
 .react-calendar__navigation button {
 	min-width: 44px;
 	background: none;
+	border-radius: 0.5rem;
 }
 
 .react-calendar__navigation button:disabled {

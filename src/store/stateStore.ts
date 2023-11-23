@@ -17,7 +17,7 @@ export interface IndicatorState {
 interface PeriodState {
 	startTime: string
 	endTime: string
-	// set
+	setTime: (startTime: Date, endTime: Date) => void
 }
 
 export const useIndicatorStore = create<IndicatorState>((set) => ({
@@ -30,4 +30,14 @@ export const useResStore = create<ResState>((set) => ({
 	resolution: { isDesktop: true, isTablet: false, isMobile: false },
 	setResolution: (newRes: ResolutionType) =>
 		set(() => ({ resolution: newRes })),
+}))
+
+export const usePeriodStore = create<PeriodState>((set) => ({
+	startTime: '',
+	endTime: '',
+	setTime: (startTime: Date, endTime: Date) =>
+		set(() => ({
+			startTime: startTime.toLocaleDateString(),
+			endTime: endTime.toLocaleDateString(),
+		})),
 }))
