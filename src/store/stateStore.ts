@@ -14,11 +14,27 @@ export interface IndicatorState {
 	setIndicatorType: (type: IndicatorType) => void
 }
 
+type DataStringType = {
+	year: number
+	month: number
+	day: number
+}
+
 export interface PeriodState {
 	serviceStartDate: Date
-	startDate: Date
-	endDate: Date
+	startDate: DataStringType
+	endDate: DataStringType
 	setPeriod: (startDate: Date, endDate: Date) => void
+}
+
+const getDateString = (date: Date): DataStringType => {
+	const year = date.getFullYear()
+	// const month = ('0' + (date.getMonth() + 1)).slice(-2)
+	// const day = ('0' + date.getDate()).slice(-2)
+	const month = date.getMonth() + 1
+	const day = date.getDate()
+
+	return { year, month, day }
 }
 
 export const useIndicatorStore = create<IndicatorState>((set) => ({
@@ -35,8 +51,13 @@ export const useResStore = create<ResState>((set) => ({
 
 export const usePeriodStore = create<PeriodState>((set) => ({
 	serviceStartDate: new Date(2023, 10, 8),
-	startDate: new Date(),
-	endDate: new Date(),
+	startDate: getDateString(
+		new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+	),
+	endDate: getDateString(new Date()),
 	setPeriod: (startDate: Date, endDate: Date) =>
-		set(() => ({ startDate: startDate, endDate: endDate })),
+		set(() => ({
+			startDate: getDateString(startDate),
+			endDate: getDateString(endDate),
+		})),
 }))

@@ -3,10 +3,17 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import {
 	ResState,
+	PeriodState,
 	useResStore,
 	useIndicatorStore,
+	usePeriodStore,
 } from '../../store/stateStore'
-import { DataState, useDataStore, DataParamsType } from '../../store/dataStore'
+import {
+	DataState,
+	useDataStore,
+	DataParamsType,
+	setDataRange,
+} from '../../store/dataStore'
 
 import DataSummary from '../data-summary/data-summary.component'
 import PnlAnalysis from '../pnl-analysis/pnl-analysis.component'
@@ -17,6 +24,7 @@ import { DataSectionContainer, DataContentsArea } from './data-section.styles'
 export default function DataSection() {
 	const resState: ResState = useResStore()
 	const indicatorState = useIndicatorStore((state) => state.indicatorType)
+	const period: PeriodState = usePeriodStore()
 
 	const { daytimeData, fulltimeData, setData }: DataState = useDataStore(
 		(state) => ({
@@ -47,14 +55,24 @@ export default function DataSection() {
 			const response = await axios.all([
 				axios.get(process.env.REACT_APP_DATA_URL, {
 					params: { ...axiosParams, specific_hour: true },
+					headers: { 'X-Requested-With': 'XMLHttpRequest' },
 				}),
 				axios.get(process.env.REACT_APP_DATA_URL, {
 					params: { ...axiosParams },
+					headers: { 'X-Requested-With': 'XMLHttpRequest' },
 				}),
 			])
 			setData(
-				response[0].data[indicatorType][params.indicator.substring(0, 1)],
-				response[1].data[indicatorType][params.indicator.substring(0, 1)],
+				setDataRange(
+					response[0].data[indicatorType][params.indicator.substring(0, 1)],
+					period.startDate.day,
+					period.endDate.day,
+				),
+				setDataRange(
+					response[1].data[indicatorType][params.indicator.substring(0, 1)],
+					period.startDate.day,
+					period.endDate.day,
+				),
 			)
 		} catch (e) {
 			console.error(e)
@@ -65,12 +83,12 @@ export default function DataSection() {
 		getData({
 			indicator: indicatorState,
 			period: 'monthly',
-			year: 2023,
-			month: 11,
+			year: period.startDate.year,
+			month: period.startDate.month,
 			// day: 12,
 		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [indicatorState])
+	}, [indicatorState, period])
 
 	return (
 		<DataSectionContainer>

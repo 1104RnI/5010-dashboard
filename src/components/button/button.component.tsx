@@ -11,16 +11,18 @@ export interface ButtonProps {
 	icon?: ReactElement
 	text: string
 	handleClick?: MouseEventHandler<HTMLButtonElement>
+	disabled?: boolean
 }
 
 export default function Button(props: ButtonProps) {
-	const { appearance, hierarchy, icon, text, handleClick } = props
+	const { appearance, hierarchy, icon, text, handleClick, disabled } = props
 
 	return (
 		<ButtonContainer
 			appearance={appearance}
 			hierarchy={hierarchy}
 			onClick={handleClick}
+			disabled={disabled}
 		>
 			{icon}
 			<span>{text}</span>

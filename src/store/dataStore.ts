@@ -42,6 +42,13 @@ export const getExisting = (data: DataType[]) => {
 	return newData
 }
 
+export const setDataRange = (data: DataType[], start: number, end: number) => {
+	const newArray = data.filter(
+		(item, index) => index < end && index >= start - 1,
+	)
+	return newArray
+}
+
 export const useDataStore = create<DataState>((set) => ({
 	daytimeData: [
 		{

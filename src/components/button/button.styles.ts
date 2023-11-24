@@ -54,4 +54,8 @@ export const ButtonContainer = styled.button<{
 	&:active {
 		background-color: #f1f1f1;
 	}
+
+	&:disabled {
+		opacity: 0.25;
+	}
 `

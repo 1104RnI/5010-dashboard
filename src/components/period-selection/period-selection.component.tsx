@@ -1,4 +1,4 @@
-import { MouseEventHandler, useEffect, useState } from 'react'
+import { MouseEventHandler, useState } from 'react'
 import Calendar from 'react-calendar'
 import './Calendar.css'
 
@@ -7,21 +7,35 @@ import { usePeriodStore, PeriodState } from '../../store/stateStore'
 import Button from '../button/button.component'
 
 import { PeriodSelectionContainer } from './period-selection.styles'
-import { Value } from 'react-calendar/dist/cjs/shared/types'
+
+type ValuePiece = Date | null
+type CalendarValue = ValuePiece | [ValuePiece, ValuePiece]
 
 type PeriodSelectionProps = {
 	handleCancel: MouseEventHandler<HTMLButtonElement>
 }
 
+const getType = (target: any) =>
+	Object.prototype.toString.call(target).slice(8, -1)
+
+const getDate = (date: CalendarValue) => {
+	if (getType(date) === 'Date') {
+		const startDate = date as ValuePiece
+		return [startDate] as [Date]
+	} else if (getType(date) === 'Array') {
+		const [startDate, endDate] = date as [ValuePiece, ValuePiece]
+		return [startDate, endDate] as [Date, Date]
+	} else return [new Date()]
+}
+
 export default function PeriodSelection(props: PeriodSelectionProps) {
 	const { handleCancel } = props
-	const [date, setDate] = useState<Value>(new Date())
-	const period: PeriodState = usePeriodStore() // ← get 'setPeriod' and call on confirmation
+	const [date, setDate] = useState<CalendarValue>(new Date())
+	const period: PeriodState = usePeriodStore()
 
-	useEffect(() => {
-		console.log(date)
-		console.log(typeof date)
-	}, [date])
+	const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {
+		period.setPeriod(getDate(date)[0], getDate(date)[1])
+	}
 
 	return (
 		<PeriodSelectionContainer>
@@ -30,24 +44,21 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 				selectRange
 				// value={date}
 				onChange={setDate}
-				// defaultValue={date}
+				onClickDay={setDate}
 				maxDate={new Date()}
 				minDate={period.serviceStartDate}
 			></Calendar>
-			<p>{date?.toLocaleString()}</p>
+			<div id="date-selected-text-container">
+				<div className="text-container-column" id="first-column">
+					<span className="text-bold">From </span>
+					<p>{getDate(date)[0]?.toLocaleDateString('ko-KR')}</p>
+				</div>
+				<div className="text-container-column" id="second-column">
+					<span className="text-bold">To </span>
+					<p>{getDate(date)[1]?.toLocaleDateString('ko-KR')}</p>
+				</div>
+			</div>
 
-			{/* {date?.length > 0 ? (
-				<p className="text-center">
-					<span className="bold">Start:</span> {date[0].toDateString()}
-					&nbsp;|&nbsp;
-					<span className="bold">End:</span> {date[1].toDateString()}
-				</p>
-			) : (
-				<p className="text-center">
-					<span className="bold">Default selected date:</span>{' '}
-					{date.toDateString()}
-				</p>
-			)} */}
 			<div id="buttons-container">
 				<Button
 					text="Cancel"
@@ -55,7 +66,13 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 					appearance="system"
 					handleClick={handleCancel}
 				/>
-				<Button text="Confirm" hierarchy="primary" appearance="accent" />
+				<Button
+					text="Confirm"
+					hierarchy="primary"
+					appearance="accent"
+					handleClick={handleConfirm}
+					disabled={!(getDate(date).length > 1)}
+				/>
 			</div>
 		</PeriodSelectionContainer>
 	)
