@@ -70,7 +70,10 @@ export default function PeriodSelection(props: PeriodSelectionProps) {
 					text="Confirm"
 					hierarchy="primary"
 					appearance="accent"
-					handleClick={handleConfirm}
+					handleClick={(event) => {
+						handleConfirm(event)
+						handleCancel(event)
+					}}
 					disabled={!(getDate(date).length > 1)}
 				/>
 			</div>
